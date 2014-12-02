@@ -1,0 +1,10 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "socket.io": "^1.0.6",
+    "fluent-ffmpeg": "^1.7.2",
+    "node-uuid": "^1.4.1"
+  }
+}
