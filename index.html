@@ -27,47 +27,11 @@
                 <input type="password" name="password" id="password"/>
                 <a href="webrtc.html"><input type="button" value="sign up" id="submit" onclick="validate()"/></a>
             </form>
-            <input type="button" onclick="record()">
-            <input type="button" onclick="stop()">
         </div>
     </div>
 
 </div>
-<script>
-var audio = {};
-var record=function(){
-    navigator.getUserMedia = (navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia);
-    if (navigator.getUserMedia) {
-        navigator.getUserMedia(
-                {
-                    video:false,
-                    audio:true
-                },
-                function(stream) { console.log("stream",stream);/* do something */
-                    audio=stream;
-                    stream.onended=function(a){
-                        console.log('stream ended w audio',a.getAudioTracks());
 
-
-                    }
-                },
-                function(error) {console.log("err",error); /* do something */ }
-        );
-    }
-    else {
-        alert('Sorry, the browser you are using doesn\'t support getUserMedia');
-        return;
-    }
-}
-    var stop = function(){
-        audio.stop();
-        console.log('i cant stop1!',audio)
-    }
-}
-</script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="/script.js"></script>

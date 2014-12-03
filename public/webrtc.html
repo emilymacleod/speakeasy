@@ -4,16 +4,30 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="import" href="/bower_components/core-scaffold/core-scaffold.html">
+    <link rel="import" href="/bower_components/core-item/core-item.html">
+    <link rel="import" href="/bower_components/core-menu/core-menu.html">
+    <link rel="import" href="/bower_components/core-icon/core-icon.html">
+    <link rel="import" href="/bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+
+
+
+
 <body>
 
 <div class="container">
 
     <core-scaffold>
         <core-header-panel navigation flex mode="seamed">
-            ....
+            <core-toolbar>PROFILE</core-toolbar>
+            <core-menu selected="0" selectedItem="{{item}}">
+                <core-item icon="account" label="Account"></core-item>
+                <core-item icon="settings" label="Settings"></core-item>
+            </core-menu>
+
+
         </core-header-panel>
         <div tool>Speakeasy</div>
-        <div fit><button onclick="startRecording(this);">record</button>
+        <div><button onclick="startRecording(this);">record</button>
             <button onclick="stopRecording(this);">stop</button>
 
             <h2>Recordings</h2>
@@ -21,6 +35,7 @@
 
             <h2>Log</h2>
             <pre id="log"></pre></div>
+
 
     <script>
         function __log(e, data) {
