@@ -8,8 +8,9 @@
     <link rel="import" href="/bower_components/core-menu/core-menu.html">
     <link rel="import" href="/bower_components/core-icon/core-icon.html">
     <link rel="import" href="/bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
-
-
+    <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="import" href="/bower_components/paper-dropdown/paper-dropdown.html">
+    <link rel="import" href="/bower_components/paper-item/paper-item.html">
 
 
 <body>
@@ -18,16 +19,21 @@
 
     <core-scaffold>
         <core-header-panel navigation flex mode="seamed">
-            <core-toolbar>PROFILE</core-toolbar>
-            <core-menu selected="0" selectedItem="{{item}}">
-                <core-item icon="account" label="Account"></core-item>
-                <core-item icon="settings" label="Settings"></core-item>
-            </core-menu>
 
+            <paper-dropdown-menu label="Profile">
+                <paper-dropdown class="dropdown">
+                    <core-menu class="menu">
+                        <a href="/account.html"><paper-item>Account</paper-item></a>
+                        <a href="http://www.google.com"><paper-item>Settings</paper-item></a>
+                        <a href="http://www.google.com"><paper-item>ETC</paper-item></a>
+                        <a href="http://www.google.com"><paper-item>ETC</paper-item></a>
+                    </core-menu>
+                </paper-dropdown>
+            </paper-dropdown-menu>
+</core-header-panel>
 
-        </core-header-panel>
         <div tool>Speakeasy</div>
-        <div><button onclick="startRecording(this);">record</button>
+        <button onclick="startRecording(this);">record</button>
             <button onclick="stopRecording(this);">stop</button>
 
             <h2>Recordings</h2>
@@ -112,7 +118,6 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="/script.js"></script>
-
 
     </core-scaffold>
 

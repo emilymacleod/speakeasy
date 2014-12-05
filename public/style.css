@@ -3,6 +3,16 @@ body {
 
 }
 
+p.logo-text {
+    text-align: center;
+}
+
+#SideNav {
+    margin-left: 10px;
+    float: left;
+
+}
+
 #speakeasylogo {
     background-color: #6292CC;
     margin-left: 400px;
@@ -22,9 +32,7 @@ body {
 }
 
 h2{
-    background-color: #FEFFED;
-    padding: 30px 35px;
-    margin: -10px -50px;
+    background-color: #6292CC;
     text-align:center;
     border-radius: 10px 10px 0 0;
 }
@@ -35,9 +43,9 @@ hr{
     margin-bottom: 40px;
 }
 div.container{
-    width: 900px;
+    width: 1000px;
     height: 610px;
-    margin:35px auto;
+    margin:35px 0;
     font-family: 'Raleway', sans-serif;
 }
 div.main{
@@ -46,7 +54,7 @@ div.main{
     font-family: raleway;
     float:left;
     margin-left: 100px;
-    margin-top:50px;
+    margin-top:0px;
 }
 input[type=text],input[type=password]{
     width: 100%;

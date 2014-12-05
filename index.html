@@ -15,22 +15,27 @@
 
 </head>
 <body>
+
+
+
 <div id="speakeasylogo">
-<img src="/images/1.png" >
+<p class="logo-text"><img src="/images/1.png" ></p>
     <script src="login.js"></script>
     <div class="container">
+        <div id="SideNav">
+            <img src="/images/blurb.png">
+        </div>
         <div class="main">
             <form id="form_id" method="post" name="myform">
-                <label>Username</label>
-                <input type="text" name="username" id="username"/>
-                <label>Password</label>
-                <input type="password" name="password" id="password"/>
-                <a href="webrtc.html"><input type="button" value="sign up" id="submit" onclick="validate()"/></a>
+                <input type="text" name="username" id="username" placeholder="Username"/>
+                <input type="password" name="password" id="password" placeholder="Password"/>
+                <a href="profile.html"><input type="button" value="sign up" id="submit" onclick="validate()"/></a>
             </form>
         </div>
     </div>
 
 </div>
+<br>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
