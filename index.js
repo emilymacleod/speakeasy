@@ -6,8 +6,24 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var redis = require("redis");
-client = redis.createClient();
+
+var Sequelize = require('sequelize')
+    , sequelize = new Sequelize('speakeasy', 'emilymacleod', '', {
+        dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
+        port:    5432, // or 5432 (for postgres)
+    });
+
+sequelize
+    .authenticate()
+    .complete(function(err) {
+        if (!!err) {
+            console.log('Unable to connect to the database:', err)
+        } else {
+            console.log('Connection has been established successfully.')
+        }
+    });
+
+
 
 var userCount = 0;
 
@@ -20,11 +36,6 @@ app.use("/style.css", express.static(__dirname + '/style.css'));
 app.use("/script.js", express.static(__dirname + '/script.js'));
 app.use(express.static(__dirname + '/public/'));
 
-client.on("error", function (err) {
-    console.log("Error " + err);
-});
-
-client.set("app name", "speakeasy", redis.print);
 
 io.on('connection', function(socket){
     var room =  ' ';
@@ -37,10 +48,6 @@ io.on('connection', function(socket){
         socket.broadcast.emit('person', msg);
     });
 
-    client.get('app name', function(err, reply) {
-        if(err) {console.log(err)};
-        console.log('app name is', reply);
-    });
 
     socket.on('disconnect', function(){
         userCount = userCount-1;

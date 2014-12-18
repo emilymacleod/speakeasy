@@ -44,6 +44,8 @@
 
 
     <script>
+
+
         function __log(e, data) {
             log.innerHTML += "\n" + e + " " + (data || '');
         }
@@ -82,16 +84,53 @@
                 var li = document.createElement('li');
                 var au = document.createElement('audio');
                 var hf = document.createElement('a');
-
+                var btn = document.createElement('button');
+                var inputTitle = document.createElement('input');
+                var inputDescription = document.createElement('textarea');
+                console.log('url',url);
                 au.controls = true;
                 au.src = url;
                 hf.href = url;
                 hf.download = new Date().toISOString() + '.wav';
                 hf.innerHTML = hf.download;
+                hf.id = 'savecontent';
+                btn.type = 'button';
+                btn.id = 'btn-save';
+                btn.innerHTML='save';
+                btn.onclick = function() { return saveAudio(); };
+                inputTitle.type = 'text';
+                inputTitle.id = 'savetitle';
+                inputDescription.id = 'savedescription';
                 li.appendChild(au);
                 li.appendChild(hf);
+                li.appendChild(inputTitle);
+                li.appendChild(inputDescription);
+                li.appendChild(btn);
                 recordingslist.appendChild(li);
             });
+        }
+        function saveAudio() {
+            var title = document.getElementById('savetitle').value;
+            var description = document.getElementById('savedescription').value;
+            var content = document.getElementById('savecontent').innerHTML;
+
+            var clip = sequelize.define('clips', {
+                title: Sequelize.STRING,
+                description: Sequelize.STRING,
+                content: Sequelize.STRING,
+                user_id: Sequelize.INTEGER
+            });
+
+            return sequelize.sync().then(function() {
+                return clip.create({
+                    title: title,
+                    description: description,
+                    content: content,
+                    user_id: 1
+                });
+            });
+
+            return true;
         }
         window.onload = function init() {
             try {
