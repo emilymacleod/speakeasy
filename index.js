@@ -7,8 +7,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var Sequelize = require('sequelize')
-    , sequelize = new Sequelize('speakeasy', 'emilymacleod', '', {
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('speakeasy', 'emilymacleod', '', {
         dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
         port:    5432, // or 5432 (for postgres)
     });
@@ -16,7 +16,7 @@ var Sequelize = require('sequelize')
 sequelize
     .authenticate()
     .complete(function(err) {
-        if (!!err) {
+        if (err) {
             console.log('Unable to connect to the database:', err)
         } else {
             console.log('Connection has been established successfully.')
@@ -38,20 +38,34 @@ app.use(express.static(__dirname + '/public/'));
 
 
 io.on('connection', function(socket){
-    var room =  ' ';
-    socket.join(room);
     userCount = userCount+1;
-    console.log('a user connected','there are now ' + userCount + " users online");
-    socket.on('person', function(msg){
+    socket.on('newClip', function(newClip){
+            console.log('newClip',newClip);
+            var clip = sequelize.define('clips', {
+                clipid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+                title: Sequelize.STRING,
+                description: Sequelize.STRING,
+                content: Sequelize.STRING,
+                userid: Sequelize.INTEGER
 
-        console.log('person: ' + msg);
-        socket.broadcast.emit('person', msg);
-    });
-
-
+            },
+                {
+                    timestamps: false
+                });
+            newClip.id=0;
+            return sequelize.sync().then(function() {
+                return clip.create(/*{
+                 title: title,
+                 description: description,
+                 content: content,
+                 user_id: 1
+                 }*/ newClip);
+            });
+        }
+    );
     socket.on('disconnect', function(){
         userCount = userCount-1;
-        console.log('a user disconnected','there are now',userCount,"users online");
+        //console.log('a user disconnected','there are now',userCount,"users online");
     });
 });
 

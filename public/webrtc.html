@@ -93,6 +93,7 @@
                 var btn = document.createElement('button');
                 var inputTitle = document.createElement('input');
                 var inputDescription = document.createElement('textarea');
+                var br = document.createElement('br');
                 console.log('url',url);
                 au.controls = true;
                 au.src = url;
@@ -108,9 +109,13 @@
                 inputTitle.id = 'savetitle';
                 inputDescription.id = 'savedescription';
                 li.appendChild(au);
+                li.appendChild(document.createElement('br'));
                 li.appendChild(hf);
+                li.appendChild(document.createElement('br'));
                 li.appendChild(inputTitle);
+                li.appendChild(document.createElement('br'));
                 li.appendChild(inputDescription);
+                li.appendChild(document.createElement('br'));
                 li.appendChild(btn);
                 recordingslist.appendChild(li);
             });
@@ -120,22 +125,14 @@
             var title = document.getElementById('savetitle').value;
             var description = document.getElementById('savedescription').value;
             var content = document.getElementById('savecontent').innerHTML;
+            var newClip ={
+                title: title,
+                description: description,
+                content: content,
+                userid: 1
+            };
 
-            var clip = sequelize.define('clips', {
-                title: Sequelize.STRING,
-                description: Sequelize.STRING,
-                content: Sequelize.STRING,
-                user_id: Sequelize.INTEGER
-            });
-
-            return sequelize.sync().then(function() {
-                return clip.create({
-                    title: title,
-                    description: description,
-                    content: content,
-                    user_id: 1
-                });
-            });
+            socket.emit('newClip',newClip);
 
             return true;
         }
