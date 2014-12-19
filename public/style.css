@@ -36,6 +36,7 @@ h2{
     text-align:center;
     border-radius: 10px 10px 0 0;
 }
+
 hr{
     margin: 10px -50px;
     border: 0;
@@ -57,7 +58,18 @@ div.main{
     margin-top:0px;
 }
 input[type=text],input[type=password]{
-    width: 100%;
+    width: 20%;
+    height: 40px;
+    padding: 5px;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    border: 1px solid #000000;
+    color: #4f4f4f;
+    font-size: 16px;
+    border-radius: 5px;
+}
+input[type=textarea] {
+    width: 20%;
     height: 40px;
     padding: 5px;
     margin-bottom: 25px;
@@ -101,6 +113,9 @@ input[type=button]{
     padding: 10px 0;
     outline:none;
 }
+
+
 input[type=button]:hover{
     background: linear-gradient(#6292CC 5%, #6292CC 100%);
+
 }
