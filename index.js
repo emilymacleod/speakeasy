@@ -6,6 +6,9 @@ var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var pg = require('pg');
+var bodyparser = require('body-parser');
+var conString = "postgres://emilymacleod@localhost/speakeasy";
 
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('speakeasy', 'emilymacleod', '', {
@@ -35,7 +38,24 @@ app.use("/style.css", express.static(__dirname + '/style.css'));
 
 app.use("/script.js", express.static(__dirname + '/script.js'));
 app.use(express.static(__dirname + '/public/'));
-
+var urlparser = bodyparser.urlencoded({extended: false});
+app.post('/register', urlparser, function(req, res){
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+        if(err) {
+            return console.error('could not connect to postgres', err);
+        }
+        client.query('insert into users(username, name, email, password) values ($1, $2, $3, $4)', [req.body.username, req.body.name, req.body.email, req.body.password], function(err, result) {
+            if(err) {
+                return console.error('error running query', err);
+            }
+            console.log("it worked");
+            res.sendFile(__dirname + '/profile.html');
+            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
+            client.end();
+        });
+    });
+});
 
 io.on('connection', function(socket){
     userCount = userCount+1;
