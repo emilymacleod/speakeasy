@@ -37,6 +37,7 @@ app.get('/', function(req, res){
 app.use("/style.css", express.static(__dirname + '/style.css'));
 
 app.use("/script.js", express.static(__dirname + '/script.js'));
+
 app.use(express.static(__dirname + '/public/'));
 var urlparser = bodyparser.urlencoded({extended: false});
 app.post('/register', urlparser, function(req, res){
@@ -50,7 +51,7 @@ app.post('/register', urlparser, function(req, res){
                 return console.error('error running query', err);
             }
             console.log("it worked");
-            res.sendFile(__dirname + '/profile.html');
+            res.sendFile(__dirname + '/public/webrtc.html');
             //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
             client.end();
         });
